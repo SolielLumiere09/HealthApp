@@ -99,44 +99,45 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="15dp"
                 android:text="Meta"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/da_tv_dailyCalories"
+                app:layout_constraintStart_toStartOf="@+id/da_tv_dailyCalories"
                 app:layout_constraintTop_toBottomOf="@+id/da_tv_dailyCalories" />
 
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
                 android:text="Consumido"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/textView16"
+                app:layout_constraintEnd_toEndOf="@+id/da_tv_consumedCalories"
+                app:layout_constraintStart_toStartOf="@+id/da_tv_consumedCalories"
                 app:layout_constraintTop_toBottomOf="@+id/da_tv_consumedCalories" />
 
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:text="Restantes"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/textView18"
+                app:layout_constraintEnd_toEndOf="@+id/da_tv_remainingCalories"
+                app:layout_constraintStart_toStartOf="@+id/da_tv_remainingCalories"
                 app:layout_constraintTop_toBottomOf="@+id/da_tv_remainingCalories" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="148dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/round_button2"
                 android:text="Agregar"
+                android:textAlignment="center"
                 android:textColor="@color/platinum"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
