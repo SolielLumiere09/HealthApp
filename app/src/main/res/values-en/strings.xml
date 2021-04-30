@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LabelScanner</string>
+    <string name="welcome">Welcome</string>
+    <string name="update">Actualizo</string>
+    <string name="add">Se agrego</string>
+    <string name="email">Email</string>
+    <string name="email1">Enter your email</string>
+    <string name="pass">Password</string>
+    <string name="pass1">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="lastname">Last name</string>
+    <string name="name1">Enter your name</string>
+    <string name="lastname1">Enter your last name</string>
+    <string name="error1">Complete the fields</string>
+    <string name="errorUser">Incorrect email or password</string>
+    <string name="msjRegister">Registered user</string>
+    <string name="msjRegister2">Error, correo registrado</string>
+    <string name="msjRegister3">Error, contraseña debe ser mayor a 8 caracteres</string>
+    <string name="msjRegister1">Error, already registered mail</string>
+    <string name="select_image_for_text_recognition">Select image for text recognition</string>
+    <string name="find_text_button">Find text</string>
+    <string name="find_face_contour_button">Find face contour</string>
+    <string name="find_text_cloud_button">Find text (cloud)</string>
+    <string name="find_objects_button">Find objects</string>
+
+    //nutrientes
+    <string name="carbohidratos">Carbohidratos</string>
+    <string name="calorias">Calorías</string>
+    <string name="proteina">Proteína</string>
+    <string name="grasaTotal">Lípidos</string>
+    <string name="grasaSaturada">Grasa Saturada</string>
+    <string name="grasaTrans">Grasa Trans</string>
+    <string name="colesterol">Colesterol</string>
+    <string name="vitamina_a">Vitamina A</string>
+    <string name="sodio">Sodio</string>
+    <string name="azucares">Azúcares</string>
+
+    //unidades
+    <string name="g">g</string>
+    <string name="mg">mg</string>
+    <string name="kCal">kCal</string>
+    <string name="gramos">gramos</string>
+    <string name="miligramos">miligramos</string>
+    <string name="kilocalorias">kilocalorías</string>
+
+    //entrada de datos
+    <string name="nombre_producto">Nombre del producto</string>
+    <string name="tamaño_porción">Tamaño de porción (g/ml)</string>
+    <string name="carbs_porcion">Carbohidratos (g)</string>
+    <string name="calorias_porcion">Calorías (kCal)</string>
+    <string name="proteinas_porcion">Proteína (g)</string>
+    <string name="grasaTotal_porcion">Grasa (g)</string>
+    <string name="grasaSaturada_porcion">Grasa Saturada (g)</string>
+    <string name="grasaTrans_porcion">Grasa Trans(g)</string>
+    <string name="colesterol_porcion">Colesterol (g)</string>
+    <string name="sodio_porcion">Sodio (mg)</string>
+    <string name="azucares_porcion">Azúcares (g)</string>
+    <string name="vita_porcion">Vitamina A (g)</string>
+    <string name="porciones_empaque">Porciones por empaque</string>
+
+    //entrada de datos
+    <string name="nombre_hint">Nombre del producto</string>
+    <string name="tamaño_hint">Tamaño de porción</string>
+    <string name="carbs_hint">Carbohidratos por porción</string>
+    <string name="calorias_hint">Calorías por porción</string>
+    <string name="proteinas_hint">Proteína por porción</string>
+    <string name="grasaTotal_hint">Grasa Total por porción</string>
+    <string name="grasaSaturada_hint">Grasa saturada por porción</string>
+    <string name="grasaTrans_hint">Grasa trans por porción</string>
+    <string name="colesterol_hint">Colesterol por porción</string>
+    <string name="sodio_hint">Sodio por porción</string>
+    <string name="azucares_hint">Azúcares porción</string>
+    <string name="vita_hint">Vitamina A porción</string>
+    <string name="porciones_hint">Porciones</string>
+
+    <string name="logout">Logout</string>
+
+    //titulos de actividades
+    <string name="info">Información Nutrimental</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="password">Password</string>
+    <string name="type_yout_lastname">Type yout lastname</string>
+    <string name="mis_productos">Mis productos</string>
+</resources>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.google.firebase.codelab.UI.RegisterActivity">
+
+    <TextView
+        android:id="@+id/text_info"
+        android:layout_width="411dp"
+        android:layout_height="117dp"
+        android:background="@drawable/gradient_bg"
+        android:padding="30sp"
+        android:text="Consumo"
+        android:textColor="@color/platinum"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/register_container"
+        android:layout_width="345dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_button"
+        android:elevation="@dimen/default_stroke_width"
+        android:padding="25sp"
+        android:translationZ="@dimen/default_stroke_width"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_info"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Spinner
+            android:id="@+id/sp_fat"
+
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_grasa"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/text_grasa" />
+
+        <Spinner
+            android:id="@+id/sp_proteina"
+
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/sp_fat"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/text_prot" />
+
+        <EditText
+            android:id="@+id/edit_cal"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="3000"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/sp_carbs"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/text_cal" />
+
+        <TextView
+            android:id="@+id/text_cal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Calorias"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/text_obj" />
+
+        <TextView
+            android:id="@+id/text_grasa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Grasas (%)"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/text_prot" />
+
+        <TextView
+            android:id="@+id/text_prot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Proteina (%)"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/text_carbs" />
+
+        <TextView
+            android:id="@+id/text_carbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Carbohidratos (%)"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/text_cal" />
+
+        <TextView
+            android:id="@+id/fatGramsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:text="Grasas (g)"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/text_grasa" />
+
+        <TextView
+            android:id="@+id/carbsGramsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Carbohidratos (g)"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/fatGramsTV" />
+
+        <TextView
+            android:id="@+id/proteinGramsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Proteina (g)"
+            android:textColor="@color/charcoal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/carbsGramsTV" />
+
+        <EditText
+            android:id="@+id/edit_fatGrams"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:inputType="none"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/fatGramsTV"
+            app:layout_constraintTop_toTopOf="@+id/fatGramsTV" />
+
+        <EditText
+            android:id="@+id/edit_carbsGrams"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:inputType="none"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/carbsGramsTV"
+            app:layout_constraintTop_toTopOf="@+id/carbsGramsTV" />
+
+        <EditText
+            android:id="@+id/edit_proteinGrams"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:inputType="none"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/proteinGramsTV"
+            app:layout_constraintTop_toTopOf="@+id/proteinGramsTV" /> />
+
+        <TextView
+            android:id="@+id/text_obj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Objetivo"
+            android:textColor="@color/airForce"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/round_button2"
+            android:text="Guardar cambios"
+            android:textAllCaps="false"
+            android:textColor="@color/platinum"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/sp_carbs"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/sp_proteina"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/text_carbs" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

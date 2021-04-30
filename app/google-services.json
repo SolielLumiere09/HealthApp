@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "94594717633",
+    "firebase_url": "https://diabetes-uabc.firebaseio.com",
+    "project_id": "diabetes-uabc",
+    "storage_bucket": "diabetes-uabc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94594717633:android:4afc6786dfd09e176d0140",
+        "android_client_info": {
+          "package_name": "com.google.firebase.codelab.labelScannerUABC"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94594717633-vqkied3kjj4ea36hf3c03kqq6fluh53e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMrhqnBuOnwiPy69O-EJo8nzL356uIkrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94594717633-vqkied3kjj4ea36hf3c03kqq6fluh53e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94594717633:android:994b9e00615386456d0140",
+        "android_client_info": {
+          "package_name": "com.google.firebase.codelab.mlkit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94594717633-vqkied3kjj4ea36hf3c03kqq6fluh53e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMrhqnBuOnwiPy69O-EJo8nzL356uIkrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94594717633-vqkied3kjj4ea36hf3c03kqq6fluh53e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94594717633:android:20a1367f6f01d3af6d0140",
+        "android_client_info": {
+          "package_name": "com.google.firebase.codelab.mlkitUABC"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94594717633-vqkied3kjj4ea36hf3c03kqq6fluh53e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMrhqnBuOnwiPy69O-EJo8nzL356uIkrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94594717633-vqkied3kjj4ea36hf3c03kqq6fluh53e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

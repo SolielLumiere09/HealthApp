@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.google.firebase.codelab.mlkitUABC.NutrientsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBarLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="200dp"
+            android:orientation="vertical"
+            android:paddingLeft="8dp">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Porcentaje del total diario:"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <EditText
+                    android:id="@+id/cantidadEditText"
+                    style="@style/regular_text"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/gray_rounded_rectangle"
+                    android:gravity="end"
+                    android:hint="#"
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/roleSpinnerFrame"
+                    app:layout_constraintTop_toTopOf="@+id/roleSpinnerFrame" />
+
+                <TextView
+                    android:id="@+id/nombreAlimento"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <FrameLayout
+                    android:id="@+id/roleSpinnerFrame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/gray_rounded_rectangle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Spinner
+                        android:id="@+id/porcionSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="8dp"
+                        android:spinnerMode="dropdown" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad: "
+                    app:layout_constraintBottom_toBottomOf="@+id/cantidadEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/cantidadEditText"
+                    app:layout_constraintTop_toTopOf="@+id/cantidadEditText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/caloriasLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/caloriasBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="1dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#00C4FF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/caloriasTextView"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/round_button2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/calorias"
+                    app:layout_constraintStart_toEndOf="@+id/caloriasBar"
+                    app:layout_constraintTop_toTopOf="@+id/caloriasBar" />
+
+                <TextView
+                    android:id="@+id/caloriasAmount"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/caloriasTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/caloriasTextView" />
+
+                <TextView
+                    android:id="@+id/caloriasUnit"
+                    style="@style/regular_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/kilocalorias"
+                    app:layout_constraintBottom_toBottomOf="@+id/caloriasAmount"
+                    app:layout_constraintStart_toEndOf="@+id/caloriasAmount" />
+
+                <TextView
+                    android:id="@+id/caloriasNotes"
+                    style="@style/regular_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingLeft="4dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/caloriasTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/caloriasAmount" />
+
+                <TextView
+                    android:id="@+id/caloriasPercentage"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/caloriasBar"
+                    app:layout_constraintEnd_toEndOf="@+id/caloriasBar"
+                    app:layout_constraintStart_toStartOf="@+id/caloriasBar"
+                    app:layout_constraintTop_toTopOf="@+id/caloriasBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lipidosLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/lipidosBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="1dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#00C4FF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/lipidosTextView"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/round_button2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Grasa"
+                    app:layout_constraintStart_toEndOf="@+id/lipidosBar"
+                    app:layout_constraintTop_toTopOf="@+id/lipidosBar" />
+
+                <TextView
+                    android:id="@+id/lipidosAmount"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/lipidosTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/lipidosTextView" />
+
+                <TextView
+                    android:id="@+id/lipidosUnit"
+                    style="@style/regular_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/gramos"
+                    app:layout_constraintBottom_toBottomOf="@+id/lipidosAmount"
+                    app:layout_constraintStart_toEndOf="@+id/lipidosAmount" />
+
+                <TextView
+                    android:id="@+id/lipidosNotes"
+                    style="@style/regular_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingLeft="4dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/lipidosTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/lipidosAmount" />
+
+                <TextView
+                    android:id="@+id/lipidosPercentage"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/lipidosBar"
+                    app:layout_constraintEnd_toEndOf="@+id/lipidosBar"
+                    app:layout_constraintStart_toStartOf="@+id/lipidosBar"
+                    app:layout_constraintTop_toTopOf="@+id/lipidosBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/carbsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/carbsBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="1dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#00C4FF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/carbsTextView"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/round_button2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/carbohidratos"
+                    app:layout_constraintStart_toEndOf="@+id/carbsBar"
+                    app:layout_constraintTop_toTopOf="@+id/carbsBar" />
+
+                <TextView
+                    android:id="@+id/carbsAmount"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/carbsTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/carbsTextView" />
+
+                <TextView
+                    android:id="@+id/carbsUnit"
+                    style="@style/regular_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/gramos"
+                    app:layout_constraintBottom_toBottomOf="@+id/carbsAmount"
+                    app:layout_constraintStart_toEndOf="@+id/carbsAmount" />
+
+                <TextView
+                    android:id="@+id/carbsNotes"
+                    style="@style/regular_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingLeft="4dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/carbsTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/carbsAmount" />
+
+                <TextView
+                    android:id="@+id/carbsPercentage"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/carbsBar"
+                    app:layout_constraintEnd_toEndOf="@+id/carbsBar"
+                    app:layout_constraintStart_toStartOf="@+id/carbsBar"
+                    app:layout_constraintTop_toTopOf="@+id/carbsBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/azucarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/azucarBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="1dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#00C4FF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/azucarTextView"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/round_button2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/azucares"
+                    app:layout_constraintStart_toEndOf="@+id/azucarBar"
+                    app:layout_constraintTop_toTopOf="@+id/azucarBar" />
+
+                <TextView
+                    android:id="@+id/azucarAmount"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/azucarTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/azucarTextView" />
+
+                <TextView
+                    android:id="@+id/azucarUnit"
+                    style="@style/regular_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/miligramos"
+                    app:layout_constraintBottom_toBottomOf="@+id/azucarAmount"
+                    app:layout_constraintStart_toEndOf="@+id/azucarAmount" />
+
+                <TextView
+                    android:id="@+id/azucarNotes"
+                    style="@style/regular_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="left"
+                    android:paddingLeft="4dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/azucarTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/azucarAmount" />
+
+                <TextView
+                    android:id="@+id/azucarPercentage"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/azucarBar"
+                    app:layout_constraintEnd_toEndOf="@+id/azucarBar"
+                    app:layout_constraintStart_toStartOf="@+id/azucarBar"
+                    app:layout_constraintTop_toTopOf="@+id/azucarBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/proteinaLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/proteinaBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="1dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#00C4FF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/proteinaTextView"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/round_button2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/proteina"
+                    app:layout_constraintStart_toEndOf="@+id/proteinaBar"
+                    app:layout_constraintTop_toTopOf="@+id/proteinaBar" />
+
+                <TextView
+                    android:id="@+id/proteinaAmount"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/proteinaTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/proteinaTextView" />
+
+                <TextView
+                    android:id="@+id/proteinaUnit"
+                    style="@style/regular_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/gramos"
+                    app:layout_constraintBottom_toBottomOf="@+id/proteinaAmount"
+                    app:layout_constraintStart_toEndOf="@+id/proteinaAmount" />
+
+                <TextView
+                    android:id="@+id/proteinaNotes"
+                    style="@style/regular_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingLeft="4dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/proteinaTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/proteinaAmount" />
+
+                <TextView
+                    android:id="@+id/proteinaPercentage"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/proteinaBar"
+                    app:layout_constraintEnd_toEndOf="@+id/proteinaBar"
+                    app:layout_constraintStart_toStartOf="@+id/proteinaBar"
+                    app:layout_constraintTop_toTopOf="@+id/proteinaBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sodioLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="150dp"
+                android:padding="16dp">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/sodioBar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="1dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#00C4FF"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/sodioTextView"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/round_button2"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/sodio"
+                    app:layout_constraintStart_toEndOf="@+id/sodioBar"
+                    app:layout_constraintTop_toTopOf="@+id/sodioBar" />
+
+                <TextView
+                    android:id="@+id/sodioAmount"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="0"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/sodioTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/sodioTextView" />
+
+                <TextView
+                    android:id="@+id/sodioUnit"
+                    style="@style/regular_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/miligramos"
+                    app:layout_constraintBottom_toBottomOf="@+id/sodioAmount"
+                    app:layout_constraintStart_toEndOf="@+id/sodioAmount" />
+
+                <TextView
+                    android:id="@+id/sodioNotes"
+                    style="@style/regular_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingLeft="4dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/sodioTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/sodioAmount" />
+
+                <TextView
+                    android:id="@+id/sodioPercentage"
+                    style="@style/bolds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sodioBar"
+                    app:layout_constraintEnd_toEndOf="@+id/sodioBar"
+                    app:layout_constraintStart_toStartOf="@+id/sodioBar"
+                    app:layout_constraintTop_toTopOf="@+id/sodioBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/gradient_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/info"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="24dp"
+        android:clickable="true"
+        android:src="@drawable/edit"
+        android:background="@drawable/round_button2"
+        app:backgroundTint="@color/airForce"
+        app:elevation="25dp"
+        app:fabCustomSize="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/acceptButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:src="@drawable/tick"
+        app:backgroundTint="@color/airForce"
+        app:elevation="25dp"
+        app:fabCustomSize="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
