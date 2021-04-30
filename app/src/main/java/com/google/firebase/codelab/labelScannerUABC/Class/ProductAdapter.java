@@ -1,6 +1,7 @@
 package com.google.firebase.codelab.labelScannerUABC.Class;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.codelab.labelScannerUABC.R;
+import com.google.firebase.codelab.textExtractor.BarcodeAnalyzer.JsonParser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter {
 
-    ArrayList<String> productNames;
+    ArrayList<FoodItem> products;
     Context context;
+    ConsumedCalories consumedCalories;
+    private boolean clickable = false;
+    private TextView consumedCaloriesTV, remainingCalories;
 
-    public ProductAdapter(ArrayList<String> productNames, Context context) {
-        this.productNames = productNames;
+    public ProductAdapter(ArrayList<FoodItem> products, Context context) {
+        this.products = products;
         this.context = context;
     }
+
+    public ProductAdapter(ArrayList<FoodItem> products, Context context, ConsumedCalories consumedCalories) {
+        clickable = true;
+        this.products = products;
+        this.context = context;
+        this.consumedCalories = consumedCalories;
+    }
+
 
     @NonNull
     @Override
@@ -35,27 +50,34 @@ public class ProductAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
          ProductHolder productHolder = (ProductHolder)holder;
-         productHolder.productName.setText(productNames.get(position));
-         holder.itemView.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 Toast.makeText(view.getContext(), productNames.get(position), Toast.LENGTH_LONG).show();
-             }
-         });
+         productHolder.productName.setText(products.get(position).getProduct_name());
+         productHolder.productCalories.setText(String.valueOf( (int)products.get(position).getCalories())+" calorias");
+         if(clickable) {
+             holder.itemView.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     consumedCalories.addCalories(products.get(position));
+                     Log.d("onClick", "Consumed Calories: " + consumedCalories.getCalories());
+                     Toast.makeText(view.getContext(), String.valueOf(consumedCalories.getCalories()), Toast.LENGTH_LONG).show();
+                 }
+             });
+         }
     }
 
     @Override
     public int getItemCount() {
-        return productNames.size();
+        return products.size();
     }
 
     public class ProductHolder extends RecyclerView.ViewHolder {
 
         TextView productName;
+        TextView productCalories;
 
         public ProductHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.productNameTextView);
+            productCalories = itemView.findViewById(R.id.productCaloriesTextView);
         }
     }
 }

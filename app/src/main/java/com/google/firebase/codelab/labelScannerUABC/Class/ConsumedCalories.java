@@ -10,7 +10,7 @@ public class ConsumedCalories implements Serializable {
     private int protein;
     private int carbs;
 
-    private ArrayList<String> products;
+    private ArrayList<FoodItem> products;
 
 
     public ConsumedCalories() {
@@ -21,12 +21,12 @@ public class ConsumedCalories implements Serializable {
         carbs = 0;
     }
 
-    public void addCalories(int calories, int fat, int protein, int carbs, String productName){
-        this.calories+=calories;
-        this.fat+=fat;
-        this.protein+=protein;
-        this.carbs+=carbs;
-        products.add(productName);
+    public void addCalories(FoodItem product){
+        this.calories+=product.getCalories();
+        this.fat+=product.getTotalFat();
+        this.protein+=product.getProtein();
+        this.carbs+=product.getCarbs();
+        products.add(product);
     }
 
     public int getCalories() {

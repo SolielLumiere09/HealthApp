@@ -1,24 +1,12 @@
 package com.google.firebase.codelab.labelScannerUABC;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,17 +19,14 @@ import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
 import com.google.firebase.codelab.labelScannerUABC.Class.ProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
-import com.google.firebase.codelab.labelScannerUABC.databinding.ActivityProductListBinding;
-import com.google.firebase.codelab.mlkitUABC.NutrientsActivity;
+import com.google.firebase.codelab.textExtractor.BarcodeAnalyzer.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProductListActivity extends AppCompatActivity{
@@ -49,9 +34,10 @@ public class ProductListActivity extends AppCompatActivity{
     private SharedPreferences preferences;
     private String URL = "http://conisoft.org/HealthAppV2/getProducts.php";
     private  User user;
+    JsonParser parser;
 
     private RecyclerView recyclerView;
-    public ArrayList<String> productNames;
+    public ArrayList<FoodItem> foodItems;
 
 
     @Override
@@ -59,11 +45,10 @@ public class ProductListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
         user = LoadSharedPreferences();
         recyclerView = findViewById(R.id.recyclerView);
-        productNames = new ArrayList<>();
+        foodItems = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -79,7 +64,7 @@ public class ProductListActivity extends AppCompatActivity{
     }
 
     private void setAdapter(){
-        ProductAdapter productAdapter = new ProductAdapter(productNames, getApplicationContext());
+        ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext());
         recyclerView.setAdapter(productAdapter);
     }
 
@@ -89,6 +74,7 @@ public class ProductListActivity extends AppCompatActivity{
             @Override
             public void onResponse(String response) {
                 if(!response.equals("0")) {
+
                     try {
 
                         response = response.replace("[", "");
@@ -98,12 +84,30 @@ public class ProductListActivity extends AppCompatActivity{
                         JSONObject jsonObj = new JSONObject(jsonHeader);
                         JSONArray products = jsonObj.getJSONArray("products");
 
+
                         for(int i = 0; i < products.length(); i++){
                             JSONObject product = products.getJSONObject(i);
-                            productNames.add((String) product.get("Nombre"));
+                            parser = new JsonParser();
+
+                            parser.setCompleteUrl(product.getString("Barcode"));
+                            parser.start();
+
+                            try {
+                                parser.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            foodItems.add(new FoodItem(
+                                    product.getString("Nombre"),
+                                    parser.getLabel_data()[parser.CALORIAS],
+                                    parser.getLabel_data()[parser.GRASAS_TOTALES],
+                                    parser.getLabel_data()[parser.CARBOHIDRATOS],
+                                    parser.getLabel_data()[parser.PROTEINAS]
+                            ));
                         }
 
-                        Log.d("NAMES_PRODUCT", productNames.toString());
+                        Log.d("FOOD_ITEMS", products.toString());
                         setAdapter();
 
 

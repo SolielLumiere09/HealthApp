@@ -1,10 +1,13 @@
 package com.google.firebase.codelab.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
 import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
 import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
+import com.google.firebase.codelab.labelScannerUABC.Class.ProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
 import com.google.firebase.codelab.labelScannerUABC.R;
@@ -36,6 +40,14 @@ public class DiaryActivity extends AppCompatActivity {
     private User user;
     private SharedPreferences preferences;
     private TextView da_tv_dailyCalories, da_tv_consumedCalories, da_tv_remainingCalories;
+    private ConsumedCalories consumedCalories;
+
+    private int dailyCalories;
+    private int dailyFat;
+    private int dailyCarbs;
+    private int dailyProtein;
+
+    private RecyclerView da_tv_recyclerView;
 
     private ArrayList<FoodItem> foodItems;
     JsonParser parser;
@@ -53,11 +65,38 @@ public class DiaryActivity extends AppCompatActivity {
         da_tv_consumedCalories = findViewById(R.id.da_tv_consumedCalories);
         da_tv_dailyCalories = findViewById(R.id.da_tv_dailyCalories);
         da_tv_remainingCalories = findViewById(R.id.da_tv_remainingCalories);
+        da_tv_recyclerView = findViewById(R.id.da_tv_recyclerView);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        da_tv_recyclerView.setLayoutManager(linearLayoutManager);
+
+        consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
+        if(consumedCalories == null){
+            consumedCalories = new ConsumedCalories();
+            CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
+        }
 
 
         getPercentages();
         getProducts();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
+    }
+
+    private void setAdapter(){
+        ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext(), consumedCalories);
+        da_tv_recyclerView.setAdapter(productAdapter);
     }
 
     private User getUser(){
@@ -112,6 +151,7 @@ public class DiaryActivity extends AppCompatActivity {
                         }
 
                         Log.d("FOOD_ITEMS", foodItems.toString());
+                        setAdapter();
 
 
                     } catch (JSONException e) {
@@ -159,22 +199,14 @@ public class DiaryActivity extends AppCompatActivity {
                     try {
 
                         JSONObject nutrients = new JSONObject(response);
-                        int dailyCalories = Integer.parseInt((String) nutrients.get("dailyCalories"));
-                        int dailyFat = Integer.parseInt((String) nutrients.get("dailyFat"));
-                        int dailyCarbs = Integer.parseInt((String) nutrients.get("dailyCarbs"));
-                        int dailyProtein = Integer.parseInt ((String) nutrients.get("dailyProtein"));
+                        dailyCalories = Integer.parseInt((String) nutrients.get("dailyCalories"));
+                        dailyFat = Integer.parseInt((String) nutrients.get("dailyFat"));
+                        dailyCarbs = Integer.parseInt((String) nutrients.get("dailyCarbs"));
+                        dailyProtein = Integer.parseInt ((String) nutrients.get("dailyProtein"));
 
                         da_tv_dailyCalories.setText(String.valueOf(dailyCalories));
-
-                        ConsumedCalories calories = CaloriesLoader.readConsumedCalories(getApplicationContext());
-
-                        if(calories == null){
-                            da_tv_remainingCalories.setText(String.valueOf(dailyCalories));
-                            CaloriesLoader.writeConsumedCalories(getApplicationContext(), new ConsumedCalories());
-                        }else{
-                            da_tv_remainingCalories.setText(String.valueOf(dailyCalories - calories.getCalories()));
-
-                        }
+                        da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
+                        da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
 
 
                     } catch (JSONException e) {
@@ -206,5 +238,14 @@ public class DiaryActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
+    }
+
+    public void onAddFood(){
+
+    }
+
+    public void updateDiaryTextViews(){
+        da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
+        da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
     }
 }
