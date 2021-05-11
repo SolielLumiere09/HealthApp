@@ -63,16 +63,13 @@ public class IntroActivity extends AppCompatActivity {
         btnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.button_animation);
 
         //fill list screen
-
+        // Utilizar imagenes de 128px para mantener el tamano en todas las transiciones.
         final List<ScreenItem> mList = new ArrayList<>();
         mList.add(new ScreenItem("Registrate",
                 "\nCrea una cuenta con tu correo electronico para tener un control personalizado de la ingesta " +
                         "diaria, semanal o mensual de tus alimentos.", R.drawable.sign_up));
-        mList.add(new ScreenItem("Elige tu alimento",
-                "\nBusca la tabla nutrimental en el producto que deseas comprar o ingerir", R.drawable.diet));
-        mList.add(new ScreenItem("¡Toma la foto!",
-                "Enfoca la tabla, asegurate que sea una imagen clara y con toda la informacion que necesitas." +
-                        "\nTambien puedes elegir una imagen desde el carrete de fotos de tu dispositivo.", R.drawable.camera));
+        mList.add(new ScreenItem("¡Escanea el codigo de barras!",
+                "Busca el codigo de barras del producto que deseas consultar y apunta la camara para escanearlo.", R.drawable.camera));
         mList.add(new ScreenItem("Mira la informacion de nutricion!",
                 "Listo, la informacion que necesitas sera desplegada para una mejor eleccion de los productos que necesitas!", R.drawable.star));
 
