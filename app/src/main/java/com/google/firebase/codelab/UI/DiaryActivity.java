@@ -75,11 +75,8 @@ public class DiaryActivity extends AppCompatActivity {
             consumedCalories = new ConsumedCalories();
             CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
         }
-
-
         getPercentages();
         getProducts();
-
     }
 
     @Override
@@ -107,9 +104,7 @@ public class DiaryActivity extends AppCompatActivity {
         String email = preferences.getString(SharedPreference.KeyEmail, null);
         String pass = preferences.getString(SharedPreference.KeyPassword, null);
 
-
         return new User(id, name, lastname ,email, pass);
-
     }
     private void getProducts(){
 
