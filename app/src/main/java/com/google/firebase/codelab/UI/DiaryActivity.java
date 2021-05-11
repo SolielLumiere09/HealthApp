@@ -92,7 +92,7 @@ public class DiaryActivity extends AppCompatActivity {
     }
 
     private void setAdapter(){
-        ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext(), consumedCalories);
+        ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext(), consumedCalories, da_tv_consumedCalories, da_tv_remainingCalories, dailyCalories);
         da_tv_recyclerView.setAdapter(productAdapter);
     }
 

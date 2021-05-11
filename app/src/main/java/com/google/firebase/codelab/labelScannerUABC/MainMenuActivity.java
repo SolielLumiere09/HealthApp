@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.codelab.UI.DailyIntakeActivity;
 import com.google.firebase.codelab.UI.DiaryActivity;
 import com.google.firebase.codelab.UI.LoginActivity;
+import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
+import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
 import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
@@ -70,6 +72,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
         User user = LoadSharedPreferences();
         labelAnalyzer = new LabelAnalyzer();

@@ -24,18 +24,22 @@ public class ProductAdapter extends RecyclerView.Adapter {
     Context context;
     ConsumedCalories consumedCalories;
     private boolean clickable = false;
-    private TextView consumedCaloriesTV, remainingCalories;
+    private TextView consumedCaloriesTV, remainingCaloriesTV;
+    private int dailyCalories;
 
     public ProductAdapter(ArrayList<FoodItem> products, Context context) {
         this.products = products;
         this.context = context;
     }
 
-    public ProductAdapter(ArrayList<FoodItem> products, Context context, ConsumedCalories consumedCalories) {
+    public ProductAdapter(ArrayList<FoodItem> products, Context context, ConsumedCalories consumedCalories, TextView consumedCaloriesTV, TextView remainingCaloriesTV, int dailyCalories) {
         clickable = true;
         this.products = products;
         this.context = context;
         this.consumedCalories = consumedCalories;
+        this.consumedCaloriesTV = consumedCaloriesTV;
+        this.remainingCaloriesTV = remainingCaloriesTV;
+        this.dailyCalories = dailyCalories;
     }
 
 
@@ -58,7 +62,9 @@ public class ProductAdapter extends RecyclerView.Adapter {
                  public void onClick(View view) {
                      consumedCalories.addCalories(products.get(position));
                      Log.d("onClick", "Consumed Calories: " + consumedCalories.getCalories());
-                     Toast.makeText(view.getContext(), String.valueOf(consumedCalories.getCalories()), Toast.LENGTH_LONG).show();
+                     consumedCaloriesTV.setText(String.valueOf(consumedCalories.getCalories()));
+                     remainingCaloriesTV.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
+                     //Toast.makeText(view.getContext(), String.valueOf(consumedCalories.getCalories()), Toast.LENGTH_LONG).show();
                  }
              });
          }
