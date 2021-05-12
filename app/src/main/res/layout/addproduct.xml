@@ -39,8 +39,11 @@
             android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Button"
+            android:textSize="12sp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/round_button2"
+            android:textColor="@color/platinum"
+            android:text="Agregar"
             app:layout_constraintStart_toEndOf="@+id/add_productCaloriesTextView"
             app:layout_constraintTop_toTopOf="parent" />
 

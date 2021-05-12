@@ -43,6 +43,16 @@ public class AddProductAdapter extends RecyclerView.Adapter {
         AddProductHolder productHolder = (AddProductHolder)holder;
         productHolder.productName.setText(products.get(position).getProduct_name());
         productHolder.productCalories.setText(String.valueOf( (int)products.get(position).getCalories())+" calorias");
+
+        ((AddProductHolder) holder).btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                consumedCalories.addCalories(products.get(position));
+                CaloriesLoader.writeConsumedCalories(context.getApplicationContext(), consumedCalories);
+                Toast.makeText(context, String.valueOf(consumedCalories.getCalories()), Toast.LENGTH_LONG).show();
+            }
+        });
+        /*
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +61,8 @@ public class AddProductAdapter extends RecyclerView.Adapter {
                 Toast.makeText(view.getContext(), String.valueOf(consumedCalories.getCalories()), Toast.LENGTH_LONG).show();
             }
         });
+
+         */
     }
 
     @Override
