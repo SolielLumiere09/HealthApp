@@ -148,12 +148,13 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/diaryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="Agregar Comida"
+        android:onClick="startAddFoodActivity"
         android:background="@drawable/round_button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

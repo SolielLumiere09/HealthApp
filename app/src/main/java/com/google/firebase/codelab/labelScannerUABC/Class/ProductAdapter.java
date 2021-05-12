@@ -56,10 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter {
              holder.itemView.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
-                     consumedCalories.addCalories(products.get(position));
-                     consumedCaloriesTV.setText(String.valueOf(consumedCalories.getCalories()));
-                     remainingCaloriesTV.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
-                     //Toast.makeText(view.getContext(), String.valueOf(consumedCalories.getCalories()), Toast.LENGTH_LONG).show();
+
                  }
              });
          }

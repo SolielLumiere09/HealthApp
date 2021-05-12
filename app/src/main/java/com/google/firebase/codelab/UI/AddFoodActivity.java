@@ -1,8 +1,11 @@
 package com.google.firebase.codelab.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.codelab.labelScannerUABC.Class.AddProductAdapter;
+import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
+import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
 import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
 import com.google.firebase.codelab.labelScannerUABC.Class.ProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
@@ -33,10 +39,12 @@ public class AddFoodActivity extends AppCompatActivity {
     private String URL_GET_PERCENTAGES = "http://conisoft.org/HealthAppV2/getPercentages.php";
     private String URL_GET_PRODUCTS = "http://conisoft.org/HealthAppV2/getProducts.php";
     private ProgressDialog progressDialog;
-    JsonParser parser;
+    private JsonParser parser;
     private ArrayList<FoodItem> foodItems;
     private User user;
     private SharedPreferences preferences;
+    private RecyclerView af_tv_recyclerView;
+    private ConsumedCalories consumedCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +54,34 @@ public class AddFoodActivity extends AppCompatActivity {
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
         user = getUser();
         foodItems = new ArrayList<>();
+
+        af_tv_recyclerView = findViewById(R.id.af_tv_recyclerView);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        af_tv_recyclerView.setLayoutManager(linearLayoutManager);
+
+        consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
+
+        getProducts();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
+        Log.d("Comer", "AddFoodActivity onStart" + consumedCalories.getCalories());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
+        Log.d("Comer", "AddFoodActivity onStop" + consumedCalories.getCalories());
     }
 
     private void setAdapter(){
-       /* ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext(), consumedCalories, da_tv_consumedCalories, da_tv_remainingCalories, dailyCalories);
-        da_tv_recyclerView.setAdapter(productAdapter);*/
+        AddProductAdapter addProductAdapter = new AddProductAdapter(foodItems, getApplicationContext(), consumedCalories);
+        af_tv_recyclerView.setAdapter(addProductAdapter);
     }
 
     private User getUser(){
@@ -112,11 +143,6 @@ public class AddFoodActivity extends AppCompatActivity {
 
                         Log.d("FOOD_ITEMS", foodItems.toString());
                         setAdapter();
-
-
-
-                        //addButton.setOnClickListener(null);
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();

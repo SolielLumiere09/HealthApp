@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,12 +63,11 @@ public class DiaryActivity extends AppCompatActivity {
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
         user = getUser();
 
-
-
         da_tv_consumedCalories = findViewById(R.id.da_tv_consumedCalories);
         da_tv_dailyCalories = findViewById(R.id.da_tv_dailyCalories);
         da_tv_remainingCalories = findViewById(R.id.da_tv_remainingCalories);
         da_tv_recyclerView = findViewById(R.id.da_tv_recyclerView);
+        addButton = findViewById(R.id.diaryButton);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         da_tv_recyclerView.setLayoutManager(linearLayoutManager);
@@ -82,16 +82,26 @@ public class DiaryActivity extends AppCompatActivity {
         getPercentages();
     }
 
+    public void startAddFoodActivity(View view){
+        Intent intent = new Intent(this, AddFoodActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
+        da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
+        da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
+        setAdapter();
+        Log.d("Comer", "DiaryActivity onStart" + consumedCalories.getCalories());
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
+        //CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
+        Log.d("Comer", "DiaryActivity onStop" + consumedCalories.getCalories());
     }
 
     private void setAdapter(){
