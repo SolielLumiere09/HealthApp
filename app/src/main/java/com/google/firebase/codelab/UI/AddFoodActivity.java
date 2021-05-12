@@ -1,16 +1,11 @@
 package com.google.firebase.codelab.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,8 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
-import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
 import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
 import com.google.firebase.codelab.labelScannerUABC.Class.ProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
@@ -36,67 +29,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DiaryActivity extends AppCompatActivity {
+public class AddFoodActivity extends AppCompatActivity {
     private String URL_GET_PERCENTAGES = "http://conisoft.org/HealthAppV2/getPercentages.php";
     private String URL_GET_PRODUCTS = "http://conisoft.org/HealthAppV2/getProducts.php";
+    private ProgressDialog progressDialog;
+    JsonParser parser;
+    private ArrayList<FoodItem> foodItems;
     private User user;
     private SharedPreferences preferences;
-    private TextView da_tv_dailyCalories, da_tv_consumedCalories, da_tv_remainingCalories;
-    private ConsumedCalories consumedCalories;
-    private Button addButton;
-
-
-    private int dailyCalories;
-    private int dailyFat;
-    private int dailyCarbs;
-    private int dailyProtein;
-
-    private RecyclerView da_tv_recyclerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary);
+        setContentView(R.layout.activity_add_food);
 
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
         user = getUser();
-
-
-
-        da_tv_consumedCalories = findViewById(R.id.da_tv_consumedCalories);
-        da_tv_dailyCalories = findViewById(R.id.da_tv_dailyCalories);
-        da_tv_remainingCalories = findViewById(R.id.da_tv_remainingCalories);
-        da_tv_recyclerView = findViewById(R.id.da_tv_recyclerView);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        da_tv_recyclerView.setLayoutManager(linearLayoutManager);
-
-        consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
-        if(consumedCalories == null){
-            consumedCalories = new ConsumedCalories();
-            CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
-        }
-
-        setAdapter();
-        getPercentages();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
+        foodItems = new ArrayList<>();
     }
 
     private void setAdapter(){
-        ProductAdapter productAdapter = new ProductAdapter(consumedCalories.getProducts(), getApplicationContext(), consumedCalories, da_tv_consumedCalories, da_tv_remainingCalories, dailyCalories);
-        da_tv_recyclerView.setAdapter(productAdapter);
+       /* ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext(), consumedCalories, da_tv_consumedCalories, da_tv_remainingCalories, dailyCalories);
+        da_tv_recyclerView.setAdapter(productAdapter);*/
     }
 
     private User getUser(){
@@ -110,35 +64,63 @@ public class DiaryActivity extends AppCompatActivity {
         return new User(id, name, lastname ,email, pass);
     }
 
+    private void getProducts(){
 
-    private void getPercentages(){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_layout);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        StringRequest request = new StringRequest(Request.Method.POST, URL_GET_PERCENTAGES, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL_GET_PRODUCTS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.hide();
                 if(!response.equals("0")) {
-
-                    response = response.replace("[", "");
-                    response = response.replace("]", "");
 
                     try {
 
-                        JSONObject nutrients = new JSONObject(response);
-                        dailyCalories = Integer.parseInt((String) nutrients.get("dailyCalories"));
-                        dailyFat = Integer.parseInt((String) nutrients.get("dailyFat"));
-                        dailyCarbs = Integer.parseInt((String) nutrients.get("dailyCarbs"));
-                        dailyProtein = Integer.parseInt ((String) nutrients.get("dailyProtein"));
+                        response = response.replace("[", "");
+                        response = response.replace("]", "");
 
-                        da_tv_dailyCalories.setText(String.valueOf(dailyCalories));
-                        da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
-                        da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
+                        String jsonHeader = addJsonHeader(response, "products");
+                        JSONObject jsonObj = new JSONObject(jsonHeader);
+                        JSONArray products = jsonObj.getJSONArray("products");
+
+
+                        for(int i = 0; i < products.length(); i++){
+                            JSONObject product = products.getJSONObject(i);
+                            parser = new JsonParser();
+
+                            parser.setCompleteUrl(product.getString("Barcode"));
+                            parser.start();
+
+                            try {
+                                parser.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            foodItems.add(new FoodItem(
+                                    product.getString("Nombre"),
+                                    parser.getLabel_data()[parser.CALORIAS],
+                                    parser.getLabel_data()[parser.GRASAS_TOTALES],
+                                    parser.getLabel_data()[parser.CARBOHIDRATOS],
+                                    parser.getLabel_data()[parser.PROTEINAS]
+                            ));
+                        }
+
+                        Log.d("FOOD_ITEMS", foodItems.toString());
+                        setAdapter();
+
+
+
+                        //addButton.setOnClickListener(null);
 
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
                 }
                 else {
                     Toast.makeText(getApplicationContext(), R.string.errorUser, Toast.LENGTH_SHORT).show();
@@ -151,8 +133,6 @@ public class DiaryActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
-
-
         }){
             @Override
             protected Map<String, String> getParams() {             //parametros que se envian con metodo POST
@@ -165,5 +145,8 @@ public class DiaryActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+    private String addJsonHeader(String response, String header){
 
+        return "{ \""+ header + "\":[" + response + "] }";
+    }
 }

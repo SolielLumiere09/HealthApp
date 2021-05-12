@@ -29,6 +29,10 @@ public class ConsumedCalories implements Serializable {
         products.add(product);
     }
 
+    public ArrayList<FoodItem> getProducts() {
+        return products;
+    }
+
     public int getCalories() {
         return calories;
     }

@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.google.firebase.codelab.UI.DiaryActivity"></activity>
+        <activity android:name="com.google.firebase.codelab.UI.AddFoodActivity"></activity>
+        <activity android:name="com.google.firebase.codelab.UI.DiaryActivity" />
         <activity android:name="com.google.firebase.codelab.UI.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
