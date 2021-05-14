@@ -142,6 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                 parametros.put("name",name);
                 parametros.put("lastname",lastname);
                 parametros.put("email",email);
+                parametros.put("pass", pass);
                 return parametros;
             }
         };
