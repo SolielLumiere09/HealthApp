@@ -10,7 +10,6 @@ $(document).ready(function () {
         success: function (response) {
             let products = JSON.parse(response)
 
-
             products.forEach(product => {
                 let productName = product.Nombre; //guardar el nombre
                 let url = product.Barcode;

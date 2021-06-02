@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.codelab.UI.DailyIntakeActivity;
 import com.google.firebase.codelab.UI.DiaryActivity;
 import com.google.firebase.codelab.UI.LoginActivity;
+import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
 import com.google.firebase.codelab.labelScannerUABC.databinding.ActivityMainMenuBinding;
@@ -82,6 +83,8 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         binding.addManualProduct.setOnClickListener(this);
         binding.textView14.setText(user.getEmail());
         binding.textView15.setText(user.getName());
+
+
 
     }
 

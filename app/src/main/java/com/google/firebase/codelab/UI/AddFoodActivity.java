@@ -84,12 +84,22 @@ class WebAppInterfaceAddFood {
             if(item.getProduct_name().equals(productName)){
                 consumedCalories.addCalories(item);
                 CaloriesLoader.writeConsumedCalories(mContext, consumedCalories);
+                Toast.makeText(mContext, "ADDED!!!", Toast.LENGTH_LONG).show();
                 break;
             }
         }
 
-        Toast.makeText(mContext, productName, Toast.LENGTH_LONG).show();
     }
+
+    @JavascriptInterface
+    public void addFoodItem(String name, String calorias, String grasasTotales, String carbs, String proteinas){
+        FoodItem item = new FoodItem(name, Float.parseFloat(calorias), Float.parseFloat(grasasTotales), Float.parseFloat(carbs), Float.parseFloat(proteinas));
+        foodItems.add(item);
+
+        Toast.makeText(mContext, item.toString(), Toast.LENGTH_LONG).show();
+    }
+
+
 }
 
 public class AddFoodActivity extends AppCompatActivity {
@@ -127,7 +137,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        getProducts();
+        //getProducts();
 
         webAppInterfaceAddFood.setFoodItems(foodItems);
         webAppInterfaceAddFood.setConsumedCalories(consumedCalories);

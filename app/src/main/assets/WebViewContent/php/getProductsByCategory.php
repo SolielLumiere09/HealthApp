@@ -25,34 +25,41 @@
 
 include ("conection.php");
 
+const cerealescongrasa = "0" ;
+const cerealessingrasa = "1" ;
 
 if(isset($_POST['groupId'])){
     $groupId = $_POST['groupId'];
 
     switch ($groupId){
-        case "0" :  $sql = "SELECT * FROM cerealescongrasa";
-                    $res = mysqli_query($conexion, $sql);
-                    $json = array();
+        case cerealescongrasa :
+                $sql = "SELECT * FROM cerealescongrasa";
+                break;
+        case cerealessingrasa:
+            $sql = "SELECT * FROM cerealessingrasa";
+            break;
 
-                    while($row = mysqli_fetch_array($res)){
-                        $json [] = ([
-                            'Unidad' => $row['Unidad'],
-                            'Cantidad_sugerida' => $row['Cantidad_sugerida'],
-                            'ALIMENTOS' => $row['ALIMENTOS'],
-                            'Energia_Kcal' => $row['Energia_Kcal'],
-                            'Hidratos_de_carbono_g' => $row['Hidratos_de_carbono_g'],
-                            'Lipidos_g' => $row['Lipidos_g'],
-                            'Proteina_g' => $row['Proteina_g']
-                        ]);
-                    }
-
-                    echo json_encode($json);
-
-                    break;
 
     }
 
 }
+
+$res = mysqli_query($conexion, $sql);
+$json = array();
+
+while($row = mysqli_fetch_array($res)){
+    $json [] = ([
+        'Unidad' => $row['Unidad'],
+        'Cantidad_sugerida' => $row['Cantidad_sugerida'],
+        'ALIMENTOS' => $row['ALIMENTOS'],
+        'Energia_Kcal' => $row['Energia_Kcal'],
+        'Hidratos_de_carbono_g' => $row['Hidratos_de_carbono_g'],
+        'Lipidos_g' => $row['Lipidos_g'],
+        'Proteina_g' => $row['Proteina_g']
+    ]);
+}
+echo json_encode($json);
+
 $conexion->close();
 
 ?>

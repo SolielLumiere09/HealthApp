@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    //  url: 'http://conisoft.org/HealthAppV2/getProductsByCategory.php',
     $('select').dropdown();
     $('.ui.dropdown').dropdown();
 
@@ -17,14 +18,12 @@ $(document).ready(function () {
         for(let i = 0; i < products_all.length; i++){
 
             if(products_all[i]['ALIMENTOS'] === selected){
-                $('#cantidad').text(products_all[i]['Cantidad_sugerida'])
+                $('#cantidad').text(products_all[i]['Cantidad_sugerida'] + 'g')
                 $('#unidad').text(products_all[i]['Unidad'])
                 $('#calorias').text(products_all[i]['Energia_Kcal'])
-                $('#hidratos').text(products_all[i]['Hidratos_de_carbono_g'])
-                $('#lipidos').text(products_all[i]['Lipidos_g'])
-                $('#proteina').text(products_all[i]['Proteina_g'])
-
-
+                $('#hidratos').text(products_all[i]['Hidratos_de_carbono_g']+ 'g')
+                $('#lipidos').text(products_all[i]['Lipidos_g']+ 'g')
+                $('#proteina').text(products_all[i]['Proteina_g']+ 'g')
                 break;
             }
         }
@@ -41,6 +40,7 @@ $(document).ready(function () {
             success: function (response) {
                 try{
                     let products = JSON.parse(response)
+                    $('#productsContainer').empty()
                     products.forEach(product => {
 
                         $('#productsContainer').append(`

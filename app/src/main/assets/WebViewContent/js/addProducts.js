@@ -19,15 +19,21 @@ $(document).ready(function () {
                         let calories = response.product.nutriments["energy-kcal_serving"];
 
                         productsContainer.append(addProductItem(productName, calories))
+
+                        Android.addFoodItem(
+                            productName,
+                            response.product.nutriments['energy-kcal_serving'],
+                            response.product.nutriments['fat_serving'],
+                            response.product.nutriments['carbohydrates_serving'],
+                            response.product.nutriments['proteins_serving']
+                            )
+
                     }
 
                 })
 
             })
 
-
-
-            console.log(products)
         }
     })
 })

@@ -117,14 +117,14 @@ public class NutrientsActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onResponse(String response) {
                 progressDialog.hide();
-                if(!response.equals("0")){
+                if(response.equals("1")){
                     Toast.makeText(getApplicationContext(), "Insertado correctamente", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{
 
                     Toast.makeText(getApplicationContext(), "No se pudo insertar" + response, Toast.LENGTH_SHORT).show();
-
+                    Log.d("RESPONSE_SQL", response);
                 }
 
             }
