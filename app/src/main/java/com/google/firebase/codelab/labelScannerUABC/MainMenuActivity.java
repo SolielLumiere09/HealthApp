@@ -4,14 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -26,22 +23,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.codelab.UI.DailyIntakeActivity;
 import com.google.firebase.codelab.UI.DiaryActivity;
 import com.google.firebase.codelab.UI.LoginActivity;
-import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
-import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
-import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
 import com.google.firebase.codelab.labelScannerUABC.databinding.ActivityMainMenuBinding;
 import com.google.firebase.codelab.textExtractor.BarcodeAnalyzer.JsonParser;
-import com.google.firebase.codelab.textExtractor.analyzer.CameraActivity;
 import com.google.firebase.codelab.textExtractor.analyzer.LabelAnalyzer;
 import com.google.firebase.codelab.textExtractor.analyzer.LabelCleaner;
 import com.google.firebase.codelab.textExtractor.groups.TextElements;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.text.FirebaseVisionCloudTextRecognizerOptions;
-import com.google.firebase.ml.vision.text.FirebaseVisionText;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -50,11 +38,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 //Hola omar, whamuuuu mezame tame waga aruji tachi!
@@ -95,6 +79,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         binding.galleryButton.setOnClickListener(this);
         binding.buttonLogout.setOnClickListener(this);
         binding.toolButton.setOnClickListener(this);
+        binding.addManualProduct.setOnClickListener(this);
         binding.textView14.setText(user.getEmail());
         binding.textView15.setText(user.getName());
 
@@ -132,6 +117,10 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             case R.id.toolButton:
                  startActivity(new Intent(this, DailyIntakeActivity.class));
                  break;
+
+            case R.id.addManualProduct:
+                    startActivity(new Intent(this, AddCustomProductActivity.class));
+                    break;
         }
 
     }

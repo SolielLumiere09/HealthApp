@@ -83,5 +83,6 @@
     <string name="type_yout_lastname">Type yout lastname</string>
     <string name="mis_productos">Mis productos</string>
     <string name="Siguiente" />
+    <string name="a_adir_producto">Añadir producto</string>
 
 </resources>
