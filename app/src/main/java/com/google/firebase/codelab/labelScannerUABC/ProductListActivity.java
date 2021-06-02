@@ -99,7 +99,6 @@ public class ProductListActivity extends AppCompatActivity{
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
        // recyclerView.setLayoutManager(linearLayoutManager);
 

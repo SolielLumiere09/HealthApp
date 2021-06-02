@@ -4,11 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,17 +42,72 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+class WebAppInterfaceAddFood {
+    Context mContext;
+    String userId;
+
+    public void setConsumedCalories(ConsumedCalories consumedCalories) {
+        this.consumedCalories = consumedCalories;
+    }
+
+    private ConsumedCalories consumedCalories;
+
+    public void setFoodItems(ArrayList<FoodItem> foodItems) {
+        this.foodItems = foodItems;
+    }
+
+    private ArrayList<FoodItem> foodItems;
+
+
+
+    /** Instantiate the interface and set the context */
+    WebAppInterfaceAddFood(Context c) {
+        mContext = c;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /** Show a toast from the web page */
+    @JavascriptInterface
+    public void showToast(String toast) {
+        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+    }
+    @JavascriptInterface
+    public String getUserId(){
+
+        return userId;
+    }
+
+    @JavascriptInterface
+    public void addFood(String productName){
+
+        for(FoodItem item : foodItems){
+
+            if(item.getProduct_name().equals(productName)){
+                consumedCalories.addCalories(item);
+                CaloriesLoader.writeConsumedCalories(mContext, consumedCalories);
+                break;
+            }
+        }
+
+        Toast.makeText(mContext, productName, Toast.LENGTH_LONG).show();
+    }
+}
+
 public class AddFoodActivity extends AppCompatActivity {
-    private String URL_GET_PERCENTAGES = "http://conisoft.org/HealthAppV2/getPercentages.php";
     private String URL_GET_PRODUCTS = "http://conisoft.org/HealthAppV2/getProducts.php";
     private ProgressDialog progressDialog;
     private JsonParser parser;
     private ArrayList<FoodItem> foodItems;
     private User user;
     private SharedPreferences preferences;
-    private RecyclerView af_tv_recyclerView;
     private ConsumedCalories consumedCalories;
+    private WebView webView;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +117,24 @@ public class AddFoodActivity extends AppCompatActivity {
         user = getUser();
         foodItems = new ArrayList<>();
 
-        af_tv_recyclerView = findViewById(R.id.af_tv_recyclerView);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        af_tv_recyclerView.setLayoutManager(linearLayoutManager);
 
         consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
 
+        webView = findViewById(R.id.afa_webView);
+        WebAppInterfaceAddFood webAppInterfaceAddFood = new WebAppInterfaceAddFood(this);
+        webAppInterfaceAddFood.setUserId(user.getId());
+
+        webView.loadUrl("http://health-app.conisoft.org/html/addProducts.html");
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
+        webView.addJavascriptInterface(webAppInterfaceAddFood, "Android");
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
         getProducts();
+
+        webAppInterfaceAddFood.setFoodItems(foodItems);
+        webAppInterfaceAddFood.setConsumedCalories(consumedCalories);
     }
 
     @Override
@@ -77,11 +149,6 @@ public class AddFoodActivity extends AppCompatActivity {
         super.onStop();
         //CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
         Log.d("Comer", "AddFoodActivity onStop" + consumedCalories.getCalories());
-    }
-
-    private void setAdapter(){
-        AddProductAdapter addProductAdapter = new AddProductAdapter(foodItems, getApplicationContext(), consumedCalories);
-        af_tv_recyclerView.setAdapter(addProductAdapter);
     }
 
     private User getUser(){
@@ -142,7 +209,6 @@ public class AddFoodActivity extends AppCompatActivity {
                         }
 
                         Log.d("FOOD_ITEMS", foodItems.toString());
-                        setAdapter();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
