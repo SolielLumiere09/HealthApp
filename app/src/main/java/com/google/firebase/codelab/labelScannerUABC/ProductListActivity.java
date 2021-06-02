@@ -4,9 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,30 +36,72 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+class WebAppInterface {
+    Context mContext;
+    String userId;
+
+
+    /** Instantiate the interface and set the context */
+    WebAppInterface(Context c) {
+        mContext = c;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /** Show a toast from the web page */
+    @JavascriptInterface
+    public void showToast(String toast) {
+        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+    }
+    @JavascriptInterface
+    public String getUserId(){
+
+        return userId;
+    }
+}
+
+
 public class ProductListActivity extends AppCompatActivity{
 
     private SharedPreferences preferences;
     private String URL = "http://conisoft.org/HealthAppV2/getProducts.php";
+    private WebView webView;
     private  User user;
+    private WebAppInterface webAppInterface;
     JsonParser parser;
 
-    private RecyclerView recyclerView;
+    //private RecyclerView recyclerView;
     public ArrayList<FoodItem> foodItems;
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
-
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
         user = LoadSharedPreferences();
-        recyclerView = findViewById(R.id.recyclerView);
+       // recyclerView = findViewById(R.id.recyclerView);
         foodItems = new ArrayList<>();
+
+        webView = findViewById(R.id.webViewTest);
+        webAppInterface = new WebAppInterface(this);
+        webAppInterface.setUserId(user.getId());
+
+        webView.loadUrl("http://health-app.conisoft.org/html/showUserProducts.html");
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
+        webView.addJavascriptInterface(webAppInterface, "Android");
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
-        recyclerView.setLayoutManager(linearLayoutManager);
+       // recyclerView.setLayoutManager(linearLayoutManager);
 
 
     }
@@ -60,15 +109,15 @@ public class ProductListActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        getProducts();
+        //getProducts();
     }
 
     private void setAdapter(){
         ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext());
-        recyclerView.setAdapter(productAdapter);
+       // recyclerView.setAdapter(productAdapter);
     }
 
-    private void getProducts(){
+   /* private void getProducts(){
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -136,7 +185,7 @@ public class ProductListActivity extends AppCompatActivity{
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
-    }
+    }*/
 
     private User LoadSharedPreferences(){
         String name, lastname, email, id, pass, gen;
