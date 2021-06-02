@@ -1,13 +1,8 @@
 package com.google.firebase.codelab.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,17 +13,17 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.codelab.labelScannerUABC.Class.AddProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
 import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
 import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
-import com.google.firebase.codelab.labelScannerUABC.Class.ProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
 import com.google.firebase.codelab.labelScannerUABC.R;
@@ -124,10 +119,11 @@ public class AddFoodActivity extends AppCompatActivity {
         WebAppInterfaceAddFood webAppInterfaceAddFood = new WebAppInterfaceAddFood(this);
         webAppInterfaceAddFood.setUserId(user.getId());
 
-        webView.loadUrl("http://health-app.conisoft.org/html/addProducts.html");
+        webView.loadUrl("file:////android_asset/WebViewContent/html/addProducts.html");
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
         webView.addJavascriptInterface(webAppInterfaceAddFood, "Android");
+
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

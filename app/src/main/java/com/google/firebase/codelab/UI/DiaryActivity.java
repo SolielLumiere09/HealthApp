@@ -117,7 +117,7 @@ public class DiaryActivity extends AppCompatActivity {
         webAppInterface = new WebAppInterface(this);
         webAppInterface.setFoodItems(consumedCalories.getProducts());
         webView = findViewById(R.id.da_webView);
-        webView.loadUrl("http://health-app.conisoft.org/html/showConsumedProducts.html");
+        webView.loadUrl("file:////android_asset/WebViewContent/html/showConsumedProducts.html");
 
 
         webView.setWebChromeClient(new WebChromeClient());
@@ -146,6 +146,13 @@ public class DiaryActivity extends AppCompatActivity {
         da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
         da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
         Log.d("Comer", "DiaryActivity onStart" + consumedCalories.getCalories());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        webView.reload();
     }
 
     @Override

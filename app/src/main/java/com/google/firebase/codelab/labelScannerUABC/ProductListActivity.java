@@ -91,7 +91,8 @@ public class ProductListActivity extends AppCompatActivity{
         webAppInterface = new WebAppInterface(this);
         webAppInterface.setUserId(user.getId());
 
-        webView.loadUrl("http://health-app.conisoft.org/html/showUserProducts.html");
+        //webView.loadUrl("http://health-app.conisoft.org/html/showUserProducts.html");
+        webView.loadUrl("file:////android_asset/WebViewContent/html/showUserProducts.html");
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
         webView.addJavascriptInterface(webAppInterface, "Android");
