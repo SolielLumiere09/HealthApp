@@ -4,12 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,28 +40,60 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+
+
+class WebAppInterface {
+    Context mContext;
+    GsonBuilder gsonBuilder;
+    Gson gson;
+
+    public void setFoodItems(ArrayList<FoodItem> foodItems) {
+        this.foodItems = foodItems;
+    }
+
+    private ArrayList<FoodItem> foodItems;
+
+
+    /** Instantiate the interface and set the context */
+    WebAppInterface(Context c) {
+        mContext = c;
+        gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
+
+
+    }
+
+    /** Show a toast from the web page */
+    @JavascriptInterface
+    public String getFoodItems(){
+
+        return gson.toJson(foodItems);
+    }
+
+}
 public class DiaryActivity extends AppCompatActivity {
     private String URL_GET_PERCENTAGES = "http://conisoft.org/HealthAppV2/getPercentages.php";
-    private String URL_GET_PRODUCTS = "http://conisoft.org/HealthAppV2/getProducts.php";
     private User user;
     private SharedPreferences preferences;
     private TextView da_tv_dailyCalories, da_tv_consumedCalories, da_tv_remainingCalories;
     private ConsumedCalories consumedCalories;
     private Button addButton;
-
-
     private int dailyCalories;
-    private int dailyFat;
-    private int dailyCarbs;
-    private int dailyProtein;
-
-    private RecyclerView da_tv_recyclerView;
+    private WebView webView;
+    private WebAppInterface webAppInterface;
 
 
+
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +105,7 @@ public class DiaryActivity extends AppCompatActivity {
         da_tv_consumedCalories = findViewById(R.id.da_tv_consumedCalories);
         da_tv_dailyCalories = findViewById(R.id.da_tv_dailyCalories);
         da_tv_remainingCalories = findViewById(R.id.da_tv_remainingCalories);
-        da_tv_recyclerView = findViewById(R.id.da_tv_recyclerView);
         addButton = findViewById(R.id.diaryButton);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        da_tv_recyclerView.setLayoutManager(linearLayoutManager);
 
         consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
         if(consumedCalories == null){
@@ -78,7 +113,24 @@ public class DiaryActivity extends AppCompatActivity {
             CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
         }
 
-        setAdapter();
+
+        webAppInterface = new WebAppInterface(this);
+        webAppInterface.setFoodItems(consumedCalories.getProducts());
+        webView = findViewById(R.id.da_webView);
+        webView.loadUrl("http://health-app.conisoft.org/html/showConsumedProducts.html");
+
+
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        webView.addJavascriptInterface(webAppInterface, "Android");
+
+
+
+
+
         getPercentages();
     }
 
@@ -93,7 +145,6 @@ public class DiaryActivity extends AppCompatActivity {
         consumedCalories = CaloriesLoader.readConsumedCalories(getApplicationContext());
         da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
         da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
-        setAdapter();
         Log.d("Comer", "DiaryActivity onStart" + consumedCalories.getCalories());
     }
 
@@ -101,13 +152,8 @@ public class DiaryActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         //CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
-        Log.d("Comer", "DiaryActivity onStop" + consumedCalories.getCalories());
     }
 
-    private void setAdapter(){
-        ProductAdapter productAdapter = new ProductAdapter(consumedCalories.getProducts(), getApplicationContext(), consumedCalories, da_tv_consumedCalories, da_tv_remainingCalories, dailyCalories);
-        da_tv_recyclerView.setAdapter(productAdapter);
-    }
 
     private User getUser(){
 
@@ -135,9 +181,6 @@ public class DiaryActivity extends AppCompatActivity {
 
                         JSONObject nutrients = new JSONObject(response);
                         dailyCalories = Integer.parseInt((String) nutrients.get("dailyCalories"));
-                        dailyFat = Integer.parseInt((String) nutrients.get("dailyFat"));
-                        dailyCarbs = Integer.parseInt((String) nutrients.get("dailyCarbs"));
-                        dailyProtein = Integer.parseInt ((String) nutrients.get("dailyProtein"));
 
                         da_tv_dailyCalories.setText(String.valueOf(dailyCalories));
                         da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
