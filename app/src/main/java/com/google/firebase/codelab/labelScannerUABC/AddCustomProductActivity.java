@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
@@ -13,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.firebase.codelab.UI.DiaryActivity;
 import com.google.firebase.codelab.labelScannerUABC.Class.CaloriesLoader;
 import com.google.firebase.codelab.labelScannerUABC.Class.ConsumedCalories;
 import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
@@ -94,6 +96,8 @@ public class AddCustomProductActivity extends AppCompatActivity {
             CaloriesLoader.writeConsumedCalories(mContext, consumedCalories);
 
             Toast.makeText(mContext, item.toString(), Toast.LENGTH_LONG).show();
+
+            AddCustomProductActivity.this.startActivity(new Intent(mContext, DiaryActivity.class));
         }
     }
 

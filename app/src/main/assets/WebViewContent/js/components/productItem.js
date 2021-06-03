@@ -13,7 +13,8 @@ function productItem(productName, calories) {
                     <i class="delete icon"></i>
                 </button>
             </div>
+            <hr>
         </div>
-        <hr>
+        
     `);
 }

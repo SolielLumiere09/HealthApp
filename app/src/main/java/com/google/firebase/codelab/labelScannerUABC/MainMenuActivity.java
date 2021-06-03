@@ -68,6 +68,8 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
         }
 
+        //CaloriesLoader.writeConsumedCalories(this, null);
+
         Log.d("name",user.getName());
         Log.d("email",user.getEmail());
 

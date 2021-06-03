@@ -5,9 +5,10 @@ $(document).ready(function () {
         let node =  productItem(product['product_name'], product['calories']);
 
         node.find('button').on('click', function () {
-            let productName = node.find('.productName').text();
-
+            let productName = node.find('.productName').text().toString();
+            $(this).parent().parent().remove();
             Android.removeItem(productName)
+
         })
 
         $('#productsContainer').append(node)

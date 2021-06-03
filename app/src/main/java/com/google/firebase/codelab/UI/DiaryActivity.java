@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -62,7 +63,8 @@ public class DiaryActivity extends AppCompatActivity {
     private int dailyCalories;
     private WebView webView;
     private WebAppInterface webAppInterface;
-
+    private Handler handler;
+    private Runnable runnable;
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -100,11 +102,30 @@ public class DiaryActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(webAppInterface, "Android");
 
-
-
-
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                checkForChanges();
+                handler.postDelayed(this, 1000);
+            }
+        };
 
         getPercentages();
+
+
+
+        handler.post(runnable);
+    }
+
+
+    public void checkForChanges(){
+
+        Log.d("CONSUMED", "checkForChanges: " + consumedCalories.getCalories());
+        Log.d("CONSUMED", "checkForChanges: " + String.valueOf(dailyCalories - consumedCalories.getCalories()));
+        consumedCalories = CaloriesLoader.readConsumedCalories(this);
+        da_tv_consumedCalories.setText(String.valueOf(consumedCalories.getCalories()));
+        da_tv_remainingCalories.setText(String.valueOf(dailyCalories - consumedCalories.getCalories()));
     }
     class WebAppInterface {
         Context mContext;
@@ -145,10 +166,20 @@ public class DiaryActivity extends AppCompatActivity {
             for(FoodItem item : foodItems){
                 if(item.getProduct_name().equals(name)){
                     consumedCalories.removeCalories(item);
+
+                    Log.d("CONSUMED", "removeItem: " + consumedCalories.getCalories());
+
                     CaloriesLoader.writeConsumedCalories(mContext, consumedCalories);
 
+                    Log.d("CONSUMED", "removeItem: " + (dailyCalories - consumedCalories.getCalories()));
+
+
+
+                    Log.d("CONSUMED", "removeItem: " + "I'M OK!");
+
                     Toast.makeText(mContext, "Removed " + name, Toast.LENGTH_LONG).show();
-                    webView.reload();
+
+                    //webView.reload();
                     break;
                 }
             }
@@ -160,6 +191,7 @@ public class DiaryActivity extends AppCompatActivity {
     public void startAddFoodActivity(View view){
         Intent intent = new Intent(this, AddFoodActivity.class);
         startActivity(intent);
+
     }
 
     @Override
@@ -174,13 +206,12 @@ public class DiaryActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        webView.reload();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        handler.removeCallbacks(runnable);
         //CaloriesLoader.writeConsumedCalories(getApplicationContext(), consumedCalories);
     }
 
