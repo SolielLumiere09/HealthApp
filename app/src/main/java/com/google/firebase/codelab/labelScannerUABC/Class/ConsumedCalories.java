@@ -29,6 +29,14 @@ public class ConsumedCalories implements Serializable {
         products.add(product);
     }
 
+    public void removeCalories(FoodItem product){
+        this.calories-=product.getCalories();
+        this.fat-=product.getTotalFat();
+        this.protein-=product.getProtein();
+        this.carbs-=product.getCarbs();
+        products.remove(product);
+    }
+
     public ArrayList<FoodItem> getProducts() {
         return products;
     }

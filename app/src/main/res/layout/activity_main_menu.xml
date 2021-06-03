@@ -136,9 +136,9 @@
                 android:layout_marginStart="124dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/round_button2"
-                android:padding="30dp"
+                android:padding="25dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/abc_vector_test"
+                android:src="@drawable/addplus"
                 android:text="Button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cameraButton" />

@@ -62,7 +62,6 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         User user = LoadSharedPreferences();
         labelAnalyzer = new LabelAnalyzer();
 
-
         //Checamos permisos de la camara
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             //Pedimos permiso si no lo tenemos

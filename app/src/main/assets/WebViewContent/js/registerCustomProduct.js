@@ -8,6 +8,13 @@ $(document).ready(function () {
 
     $('#addCustomProduct').on('click', function () {
 
+        let productName = $('#selectedProduct').val();
+        let calorias = $('#calorias').text().replace('g', '');
+        let grasasTotales = $('#lipidos').text().replace('g', '');
+        let carbs = $('#hidratos').text().replace('g', '');
+        let proteinas = $('#proteina').text().replace('g', '');
+
+        Android.addFoodItem(productName, calorias, grasasTotales, carbs, proteinas);
 
     })
 

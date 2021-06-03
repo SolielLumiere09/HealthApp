@@ -27,6 +27,10 @@ include ("conection.php");
 
 const cerealescongrasa = "0" ;
 const cerealessingrasa = "1" ;
+const frutas = "2";
+const aoa_bajo_grasa = "3";
+const aor_bajo_aporte_grasas = "4";
+
 
 if(isset($_POST['groupId'])){
     $groupId = $_POST['groupId'];
@@ -39,7 +43,17 @@ if(isset($_POST['groupId'])){
             $sql = "SELECT * FROM cerealessingrasa";
             break;
 
+        case frutas:
+            $sql = "SELECT * FROM frutas";
+            break;
 
+        case aoa_bajo_grasa:
+            $sql = "SELECT * FROM aoa_bajo_grasas" ;
+            break;
+
+        case aor_bajo_aporte_grasas;
+            $sql = "SELECT * FROM aor_bajo_aporte_grasas";
+            break;
     }
 
 }

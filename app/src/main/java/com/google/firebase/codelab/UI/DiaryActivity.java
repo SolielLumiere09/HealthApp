@@ -51,35 +51,7 @@ import com.google.gson.GsonBuilder;
 
 
 
-class WebAppInterface {
-    Context mContext;
-    GsonBuilder gsonBuilder;
-    Gson gson;
 
-    public void setFoodItems(ArrayList<FoodItem> foodItems) {
-        this.foodItems = foodItems;
-    }
-
-    private ArrayList<FoodItem> foodItems;
-
-
-    /** Instantiate the interface and set the context */
-    WebAppInterface(Context c) {
-        mContext = c;
-        gsonBuilder = new GsonBuilder();
-        gson = gsonBuilder.create();
-
-
-    }
-
-    /** Show a toast from the web page */
-    @JavascriptInterface
-    public String getFoodItems(){
-
-        return gson.toJson(foodItems);
-    }
-
-}
 public class DiaryActivity extends AppCompatActivity {
     private String URL_GET_PERCENTAGES = "http://conisoft.org/HealthAppV2/getPercentages.php";
     private User user;
@@ -115,6 +87,7 @@ public class DiaryActivity extends AppCompatActivity {
 
 
         webAppInterface = new WebAppInterface(this);
+        webAppInterface.setConsumedCalories(consumedCalories);
         webAppInterface.setFoodItems(consumedCalories.getProducts());
         webView = findViewById(R.id.da_webView);
         webView.loadUrl("file:////android_asset/WebViewContent/html/showConsumedProducts.html");
@@ -132,6 +105,56 @@ public class DiaryActivity extends AppCompatActivity {
 
 
         getPercentages();
+    }
+    class WebAppInterface {
+        Context mContext;
+        GsonBuilder gsonBuilder;
+        Gson gson;
+
+        public void setConsumedCalories(ConsumedCalories consumedCalories) {
+            this.consumedCalories = consumedCalories;
+        }
+
+        private ConsumedCalories consumedCalories;
+        public void setFoodItems(ArrayList<FoodItem> foodItems) {
+            this.foodItems = foodItems;
+        }
+
+        private ArrayList<FoodItem> foodItems;
+
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+            gsonBuilder = new GsonBuilder();
+            gson = gsonBuilder.create();
+
+
+        }
+
+        /** Show a toast from the web page */
+        @JavascriptInterface
+        public String getFoodItems(){
+
+            return gson.toJson(foodItems);
+        }
+
+        @JavascriptInterface
+        public void removeItem(String name){
+
+            for(FoodItem item : foodItems){
+                if(item.getProduct_name().equals(name)){
+                    consumedCalories.removeCalories(item);
+                    CaloriesLoader.writeConsumedCalories(mContext, consumedCalories);
+
+                    Toast.makeText(mContext, "Removed " + name, Toast.LENGTH_LONG).show();
+                    webView.reload();
+                    break;
+                }
+            }
+
+        }
+
     }
 
     public void startAddFoodActivity(View view){
