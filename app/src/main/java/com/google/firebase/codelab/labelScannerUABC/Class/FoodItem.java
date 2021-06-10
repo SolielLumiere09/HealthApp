@@ -27,6 +27,17 @@ public class FoodItem implements Serializable {
         this.protein = protein;
     }
 
+    public FoodItem(String name, float calories, float totalFat, float carbs, float protein, float sodium, float sugar, float serving_size){
+        this.product_name = name;
+        this.calories = calories;
+        this.totalFat = totalFat;
+        this.carbs = carbs;
+        this.protein = protein;
+        this.sodium = sodium;
+        this.sugar = sugar;
+        this.portion_size = serving_size;
+    }
+
     public FoodItem(
             int id,
             String product_name,

@@ -120,6 +120,7 @@ public class DataEntryActivity extends AppCompatActivity implements View.OnClick
                     if(binding.cuerpoProteina.getText().toString().length() > 0)
                         foodItem.setProtein(Float.parseFloat(binding.cuerpoProteina.getText().toString()));
                     intent.putExtra("foodItem", (Serializable) foodItem);
+                    intent.putExtra("ableToSend", true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     //Insertamos el alimento en la base de datos
                     //insertFood(foodItem);

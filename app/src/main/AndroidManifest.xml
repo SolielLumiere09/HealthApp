@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddCustomProductActivity"></activity>
+        <activity android:name="com.google.firebase.codelab.mlkitUABC.ShowLabelInfoActivity"></activity>
+        <activity android:name=".AddCustomProductActivity" />
         <activity android:name="com.google.firebase.codelab.UI.AddFoodActivity" />
         <activity android:name="com.google.firebase.codelab.UI.DiaryActivity" />
         <activity android:name="com.google.firebase.codelab.UI.IntroActivity">

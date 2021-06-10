@@ -5,6 +5,32 @@ $(document).ready(function () {
 
     let products_all = [];
 
+    //
+
+    for(let i = 1; i <= 10; i++){
+        $('#cantidadPorcion').append(`
+            <option value="${i}">${i}</option>
+        `)
+    }
+
+
+    $('#cantidadPorcion').on('change', function (e) {
+        let factor = $(this).val();
+        let selected = $('#selectedProduct').val()
+        for(let i = 0; i < products_all.length; i++){
+
+            if(products_all[i]['ALIMENTOS'] === selected){
+                $('#calorias').text(products_all[i]['Energia_Kcal'] * factor)
+                $('#hidratos').text(products_all[i]['Hidratos_de_carbono_g'] * factor)
+                $('#lipidos').text(products_all[i]['Lipidos_g'] * factor)
+                $('#proteina').text(products_all[i]['Proteina_g'] * factor)
+                break;
+            }
+        }
+
+    })
+
+
 
     $('#addCustomProduct').on('click', function () {
 
@@ -25,12 +51,13 @@ $(document).ready(function () {
         for(let i = 0; i < products_all.length; i++){
 
             if(products_all[i]['ALIMENTOS'] === selected){
-                $('#cantidad').text(products_all[i]['Cantidad_sugerida'] + 'g')
+                $('#cantidad').text(products_all[i]['Cantidad_sugerida'])
                 $('#unidad').text(products_all[i]['Unidad'])
                 $('#calorias').text(products_all[i]['Energia_Kcal'])
-                $('#hidratos').text(products_all[i]['Hidratos_de_carbono_g']+ 'g')
-                $('#lipidos').text(products_all[i]['Lipidos_g']+ 'g')
-                $('#proteina').text(products_all[i]['Proteina_g']+ 'g')
+                $('#hidratos').text(products_all[i]['Hidratos_de_carbono_g'])
+                $('#lipidos').text(products_all[i]['Lipidos_g'])
+                $('#proteina').text(products_all[i]['Proteina_g'])
+                $('#serving_size').text(products_all[i]['Peso_neto_g'])
                 break;
             }
         }

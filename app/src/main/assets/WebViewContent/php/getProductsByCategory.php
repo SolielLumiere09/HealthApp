@@ -69,7 +69,8 @@ while($row = mysqli_fetch_array($res)){
         'Energia_Kcal' => $row['Energia_Kcal'],
         'Hidratos_de_carbono_g' => $row['Hidratos_de_carbono_g'],
         'Lipidos_g' => $row['Lipidos_g'],
-        'Proteina_g' => $row['Proteina_g']
+        'Proteina_g' => $row['Proteina_g'],
+        'Peso_neto_g' => $row['Peso_neto_g']
     ]);
 }
 echo json_encode($json);

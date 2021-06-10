@@ -112,9 +112,7 @@ public class DiaryActivity extends AppCompatActivity {
         };
 
         getPercentages();
-
-
-
+        
         handler.post(runnable);
     }
 

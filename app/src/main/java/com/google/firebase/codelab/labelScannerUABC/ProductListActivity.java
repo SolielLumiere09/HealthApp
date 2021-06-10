@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.google.firebase.codelab.labelScannerUABC.Class.FoodItem;
 import com.google.firebase.codelab.labelScannerUABC.Class.ProductAdapter;
 import com.google.firebase.codelab.labelScannerUABC.Class.SharedPreference;
 import com.google.firebase.codelab.labelScannerUABC.Class.User;
+import com.google.firebase.codelab.mlkitUABC.NutrientsActivity;
 import com.google.firebase.codelab.textExtractor.BarcodeAnalyzer.JsonParser;
 
 import org.json.JSONArray;
@@ -37,31 +39,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-class WebAppInterface {
-    Context mContext;
-    String userId;
-
-
-    /** Instantiate the interface and set the context */
-    WebAppInterface(Context c) {
-        mContext = c;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    /** Show a toast from the web page */
-    @JavascriptInterface
-    public void showToast(String toast) {
-        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
-    }
-    @JavascriptInterface
-    public String getUserId(){
-
-        return userId;
-    }
-}
 
 
 public class ProductListActivity extends AppCompatActivity{
@@ -115,6 +92,46 @@ public class ProductListActivity extends AppCompatActivity{
     private void setAdapter(){
         ProductAdapter productAdapter = new ProductAdapter(foodItems, getApplicationContext());
        // recyclerView.setAdapter(productAdapter);
+    }
+
+    class WebAppInterface {
+        Context mContext;
+        String userId;
+
+
+        /** Instantiate the interface and set the context */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        /** Show a toast from the web page */
+        @JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        }
+        @JavascriptInterface
+        public String getUserId(){
+
+            return userId;
+        }
+
+        @JavascriptInterface
+        public void showFoodDetails(String name, String calories, String totalFat, String carbs, String protein, String sodium, String sugar, String portionSize){
+
+            portionSize = portionSize.replace('g', ' ');
+
+            FoodItem foodItem = new FoodItem(name, Float.parseFloat(calories), Float.parseFloat(totalFat), Float.parseFloat(carbs), Float.parseFloat(protein), Float.parseFloat(sodium), Float.parseFloat(sugar), Float.parseFloat(portionSize));
+
+
+            Intent intent = new Intent(mContext, NutrientsActivity.class);
+            intent.putExtra("foodItem", foodItem);
+            intent.putExtra("ableToSend", false);
+            mContext.startActivity(intent);
+        }
     }
 
    /* private void getProducts(){

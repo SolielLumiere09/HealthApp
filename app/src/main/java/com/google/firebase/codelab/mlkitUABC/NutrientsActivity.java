@@ -74,11 +74,13 @@ public class NutrientsActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
 
         foodItem = new FoodItem();
+        boolean ableToSend = false;
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
             foodItem = (FoodItem) extras.getSerializable("foodItem");
+            ableToSend = extras.getBoolean("ableToSend");
         }
 
         preferences = getSharedPreferences(SharedPreference.namePreference, MODE_PRIVATE);
@@ -87,12 +89,26 @@ public class NutrientsActivity extends AppCompatActivity implements View.OnClick
         binding = ActivityNutrientsBinding.inflate(getLayoutInflater());
         setContentView(binding.root3);
 
-        binding.acceptButton.setOnClickListener(new View.OnClickListener() {
+        if(ableToSend){
+            binding.acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    registerProduct();
+                }
+            });
+        }
+
+        binding.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerProduct();
+                Intent intent = new Intent(getApplicationContext(), ShowLabelInfoActivity.class);
+                intent.putExtra("fooditem", foodItem);
+
+                startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -173,7 +189,7 @@ public class NutrientsActivity extends AppCompatActivity implements View.OnClick
 
         float servingSize = foodItem.getPortion_size();
         float sodiumPerDay = 2300;
-
+        String productName = foodItem.getProduct_name();
         int fatPercentage = (int) getNutrimentPercentage(foodItem.getTotalFat(), servingSize);
         int carbsPercentage = (int)getNutrimentPercentage(foodItem.getCarbs(), servingSize);
         int sugarPercentage = (int)getNutrimentPercentage(foodItem.getSugar(), servingSize);
@@ -190,6 +206,7 @@ public class NutrientsActivity extends AppCompatActivity implements View.OnClick
         //Un producto que por cada 100g no supera las 40 kcal es bajo en calorias
         //Un producto que por cada 100ml no supera las 20kcal es bajo en calorias
 
+        binding.nombreAlimento.setText(productName);
         //Si el producto se mide en gramos
         if(foodItem.getMeasurementUnit() == "g") {
             //Calculamos las calorias por cada 100g para categorizar
