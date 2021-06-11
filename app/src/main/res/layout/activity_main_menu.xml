@@ -25,7 +25,7 @@
             android:padding="30dp"
             android:text="@string/welcome"
             android:textColor="@color/white"
-            android:textSize="35sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,9 @@
             android:layout_marginEnd="24dp"
             android:background="@color/white"
 
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13">
 
@@ -66,7 +68,7 @@
                 android:layout_marginTop="10dp"
                 android:text=""
                 android:textColor="@color/sky"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -75,140 +77,231 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/menuLayout"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/round_button"
-        android:padding="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="4dp"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.0">
-
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/button_container"
-            android:layout_width="332dp"
-            android:layout_height="177dp"
-            android:textAlignment="center"
+            android:id="@+id/menuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:paddingBottom="100dp"
+            android:background="@drawable/round_button"
+            android:padding="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintVertical_bias="0.0">
 
-            <ImageButton
-                android:id="@+id/toolButton"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="28dp"
-                android:background="@drawable/round_button2"
-                android:padding="20dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/edit"
-                android:text="Button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/galleryButton" />
-
-            <ImageButton
-                android:id="@+id/inputButton"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/round_button2"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/diaryicon"
-                android:text="Button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
-
-            <ImageButton
-                android:id="@+id/addManualProduct"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="124dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/round_button2"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/utensilicon"
-                android:text="Button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
-
-            <ImageButton
+            <RelativeLayout
                 android:id="@+id/cameraButton"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="top|center_vertical|fill_vertical"
-                android:layout_marginStart="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/round_button2"
-                android:padding="15dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/barcodeicon"
-                android:text="Button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/galleryButton"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/round_button2"
-                android:padding="20dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/gallery"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.554"
-                app:layout_constraintStart_toEndOf="@+id/cameraButton"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/cameraImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:padding="5dp"
+                    android:src="@drawable/barcodeicon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Escáner Código de Barras"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addManualButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_button2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cameraButton">
+
+                <ImageView
+                    android:id="@+id/addManualImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:padding="5dp"
+                    android:src="@drawable/utensilicon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Busca Alimentos"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/inputButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_button2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addManualButton">
+
+                <ImageView
+                    android:id="@+id/inputImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:padding="5dp"
+                    android:src="@drawable/diaryicon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Diario"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/galleryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_button2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputButton">
+
+                <ImageView
+                    android:id="@+id/galleryImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:padding="5dp"
+                    android:src="@drawable/gallery" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Escáner Etiqueta Nutrimental"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/toolButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_button2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/galleryButton">
+
+                <ImageView
+                    android:id="@+id/toolImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:padding="5dp"
+                    android:src="@drawable/edit" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Ajuste de Calorías"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/productoButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/round_button2"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/mis_productos"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.266"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolButton"
+                app:layout_constraintVertical_bias="0.024" />
+
+            <Button
+                android:id="@+id/button_logout"
+                android:layout_width="112dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/round_button2"
+                android:elevation="@dimen/default_stroke_width"
+                android:paddingRight="10dp"
+                android:text="@string/logout"
+                android:textAllCaps="false"
+                android:textColor="@color/cream"
+                android:translationZ="@dimen/default_stroke_width"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productoButton"
+                app:layout_constraintVertical_bias="0.473" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/productoButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/round_button2"
-            android:fontFamily="@font/montserrat_bold"
-            android:padding="16dp"
-            android:text="@string/mis_productos"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_container" />
-
-        <Button
-            android:id="@+id/button_logout"
-            android:layout_width="112dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/round_button2"
-            android:elevation="@dimen/default_stroke_width"
-            android:paddingRight="10dp"
-            android:text="@string/logout"
-            android:textAllCaps="false"
-            android:textColor="@color/cream"
-            android:translationZ="@dimen/default_stroke_width"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productoButton" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

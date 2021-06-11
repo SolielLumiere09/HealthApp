@@ -81,7 +81,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         binding.galleryButton.setOnClickListener(this);
         binding.buttonLogout.setOnClickListener(this);
         binding.toolButton.setOnClickListener(this);
-        binding.addManualProduct.setOnClickListener(this);
+        binding.addManualButton.setOnClickListener(this);
         binding.textView14.setText(user.getEmail());
         binding.textView15.setText(user.getName());
 
@@ -122,7 +122,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                  startActivity(new Intent(this, DailyIntakeActivity.class));
                  break;
 
-            case R.id.addManualProduct:
+            case R.id.addManualButton:
                     startActivity(new Intent(this, AddCustomProductActivity.class));
                     break;
         }
